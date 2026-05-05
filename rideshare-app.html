@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideShare CI</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+        header { background: #007bff; color: #fff; padding: 10px 0; text-align: center; }
+        .container { max-width: 800px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 5px; }
+        h1, h2 { margin: 0; }
+        .login, .dashboard, .booking, .subscription { margin-top: 20px; }
+        .time-display { font-weight: bold; margin: 20px 0; }
+        button { padding: 10px 15px; border: none; color: #fff; background: #007bff; cursor: pointer; }
+        .driver, .passenger { display: none; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>RideShare CI App</h1>
+</header>
+<div class="container">
+    <div class="login">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required />
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <div class="dashboard">
+        <h2>Dashboard</h2>
+        <div>
+            <button id="passengerBtn">Passenger</button>
+            <button id="driverBtn">Driver</button>
+        </div>
+        <div class="passenger">
+            <h3>Passenger Dashboard</h3>
+            <button id="bookBtn">Book a Ride</button>
+        </div>
+        <div class="driver">
+            <h3>Driver Dashboard</h3>
+            <button id="acceptRideBtn">Accept Ride</button>
+        </div>
+    </div>
+
+    <div class="booking">
+        <h2>Booking Page</h2>
+        <form id="bookingForm">
+            <input type="text" id="pickup" placeholder="Pickup Location" required />
+            <input type="text" id="dropoff" placeholder="Dropoff Location" required />
+            <button type="submit">Confirm Booking</button>
+        </form>
+    </div>
+
+    <div class="subscription">
+        <h2>Subscription Plans</h2>
+        <ul>
+            <li>Basic Plan - $10/month</li>
+            <li>Premium Plan - $20/month</li>
+        </ul>
+    </div>
+
+    <div class="time-display">Current Time: <span id="currentTime"></span></div>
+</div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        if (username) {
+            alert(`Welcome, ${username}!`);
+            document.querySelector('.login').style.display = 'none';
+            document.querySelector('.dashboard').style.display = 'block';
+        }
+    });
+
+    document.getElementById('passengerBtn').addEventListener('click', function () {
+        document.querySelector('.passenger').style.display = 'block';
+        document.querySelector('.driver').style.display = 'none';
+    });
+
+    document.getElementById('driverBtn').addEventListener('click', function () {
+        document.querySelector('.driver').style.display = 'block';
+        document.querySelector('.passenger').style.display = 'none';
+    });
+
+    document.getElementById('bookingForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const pickup = document.getElementById('pickup').value;
+        const dropoff = document.getElementById('dropoff').value;
+        alert(`Booking ride from ${pickup} to ${dropoff}`);
+    });
+
+    function updateTime() {
+        const now = new Date();
+        const utc = now.toUTCString();
+        document.getElementById('currentTime').innerHTML = utc;
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+</script>
+</body>
+</html>
